@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import React from 'react';
+import { Text, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
