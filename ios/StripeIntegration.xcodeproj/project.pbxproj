@@ -18,6 +18,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* StripeIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* StripeIntegrationTests.m */; };
 		43D142D679F1052952EC010A /* libPods-StripeIntegration-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE19AD6126041CFFE53C0D70 /* libPods-StripeIntegration-tvOS.a */; };
 		5F1F7180D49619F4A3128BFC /* libPods-StripeIntegration-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EB7AC148D27E0E53593C04 /* libPods-StripeIntegration-tvOSTests.a */; };
+		6E07C0482314B59F00ADCDE5 /* RNStripeKeyProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E07C0472314B59F00ADCDE5 /* RNStripeKeyProvider.m */; };
 		6E4F1DC82313119900F648AB /* RNStripe.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4F1DC72313119900F648AB /* RNStripe.m */; };
 		78CE23AC08CA479284C860B5 /* libPods-StripeIntegration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2266A84D6D2EDC32EDB9C7 /* libPods-StripeIntegration.a */; };
 		A538A7AB5A29DBBB2EE9B66B /* libPods-StripeIntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 899F24537E355BAD95BBF2D6 /* libPods-StripeIntegrationTests.a */; };
@@ -57,8 +58,10 @@
 		2D02E4901E0B4A5D006451C7 /* StripeIntegration-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "StripeIntegration-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3765E658233F3D7F15CB28C3 /* Pods-StripeIntegration-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StripeIntegration-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-StripeIntegration-tvOS/Pods-StripeIntegration-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		56EB7AC148D27E0E53593C04 /* libPods-StripeIntegration-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StripeIntegration-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E07C0472314B59F00ADCDE5 /* RNStripeKeyProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNStripeKeyProvider.m; path = StripeIntegration/RNStripeKeyProvider.m; sourceTree = "<group>"; };
 		6E4F1DC72313119900F648AB /* RNStripe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNStripe.m; path = StripeIntegration/RNStripe.m; sourceTree = "<group>"; };
 		6E4F1DC9231311C800F648AB /* RNStripe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNStripe.h; path = StripeIntegration/RNStripe.h; sourceTree = "<group>"; };
+		6E4F1DCA2314B4BD00F648AB /* RNStripeKeyProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RNStripeKeyProvider.h; path = StripeIntegration/RNStripeKeyProvider.h; sourceTree = "<group>"; };
 		899F24537E355BAD95BBF2D6 /* libPods-StripeIntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StripeIntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B75934C5E5617587C808CC8 /* Pods-StripeIntegration-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StripeIntegration-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StripeIntegration-tvOS/Pods-StripeIntegration-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		8D36C7271507A908009BFEF3 /* Pods-StripeIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StripeIntegrationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StripeIntegrationTests/Pods-StripeIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				6E4F1DC72313119900F648AB /* RNStripe.m */,
+				6E4F1DCA2314B4BD00F648AB /* RNStripeKeyProvider.h */,
+				6E07C0472314B59F00ADCDE5 /* RNStripeKeyProvider.m */,
 			);
 			name = StripeIntegration;
 			sourceTree = "<group>";
@@ -564,6 +569,7 @@
 				6E4F1DC82313119900F648AB /* RNStripe.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				6E07C0482314B59F00ADCDE5 /* RNStripeKeyProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

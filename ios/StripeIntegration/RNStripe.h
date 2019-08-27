@@ -14,16 +14,14 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTEventEmitter.h>
+#import <React/RCTBridgeModule.h>
 #import <Stripe/Stripe.h>
+#import "RNStripeKeyProvider.h"
 
-@interface RNStripeKeyProvider : NSObject<STPCustomerEphemeralKeyProvider>
+@interface RNStripe : RCTEventEmitter<STPPaymentContextDelegate, RCTBridgeModule>
 
-@property (nonatomic, strong) NSString* _Nonnull ephemeralKey;
-
-@end
-
-@interface RNStripe : RCTEventEmitter<STPPaymentContextDelegate>
-
+@property (nonatomic, strong) UIViewController* _Nonnull rootViewController;
 @property (nonatomic, strong) STPPaymentContext* _Nonnull paymentContext;
+@property (nonatomic, strong) STPCustomerContext* _Nonnull customerContext;
 
 @end
