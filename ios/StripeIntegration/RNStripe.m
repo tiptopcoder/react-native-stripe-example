@@ -10,6 +10,14 @@
 
 @implementation RNStripe
 
+- (void)startObserving {
+  self.hasListeners = YES;
+}
+
+- (void)stopObserving {
+  self.hasListeners = NO;
+}
+
 - (NSArray<NSString *> *)supportedEvents
 {
   return @[];
@@ -33,8 +41,33 @@
   [self.paymentContext presentPaymentOptionsViewController];
 }
 
+- (void) selectShippingOption {
+  [self.paymentContext presentShippingViewController];
+}
+
+- (void) requestPayment:(NSString*) paymentIntentSecret {
+  self.paymentIntentSecret = paymentIntentSecret;
+  [self.paymentContext requestPayment];
+}
+
 #pragma mark STPPaymentContextDelegate
 - (void) paymentContextDidChange:(STPPaymentContext *)paymentContext {
+  
+}
+
+- (void)paymentContext:(STPPaymentContext *)paymentContext didUpdateShippingAddress:(STPAddress *)address completion:(STPShippingMethodsCompletionBlock)completion {
+  
+}
+
+- (void)paymentContext:(STPPaymentContext *)paymentContext didCreatePaymentResult:(STPPaymentResult *)paymentResult completion:(STPErrorBlock)completion {
+  
+}
+
+- (void)paymentContext:(STPPaymentContext *)paymentContext didFinishWithStatus:(STPPaymentStatus)status error:(NSError *)error {
+  
+}
+
+- (void)paymentContext:(STPPaymentContext *)paymentContext didFailToLoadWithError:(NSError *)error {
   
 }
 

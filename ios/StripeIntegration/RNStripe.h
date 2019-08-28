@@ -23,5 +23,11 @@
 @property (nonatomic, strong) UIViewController* _Nonnull rootViewController;
 @property (nonatomic, strong) STPPaymentContext* _Nonnull paymentContext;
 @property (nonatomic, strong) STPCustomerContext* _Nonnull customerContext;
+@property (nonatomic, strong) NSString* _Nonnull paymentIntentSecret;
+@property bool hasListeners;
+
+- (void) selectPaymentOption;
+- (void) selectShippingOption;
+- (void) requestPayment:(NSString* ) paymentIntentSecret;
 
 @end

@@ -2,8 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components/native';
 
-const Container = styled.View`
-`;
+const Container = styled.View``;
 
 const ListItem = styled.View`
   flex-direction: row;
