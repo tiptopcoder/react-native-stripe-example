@@ -10,6 +10,14 @@
 
 @implementation RNStripe
 
+// Export module with name RNStripe
+RCT_EXPORT_MODULE();
+
+- (dispatch_queue_t)methodQueue
+{
+  return dispatch_get_main_queue();
+}
+
 - (void)startObserving {
   self.hasListeners = YES;
 }
@@ -23,9 +31,9 @@
   return @[];
 }
 
-- (void) initWithEphemeralKey:(NSDictionary* ) ephemeralKey {
+RCT_EXPORT_METHOD(initWithEphemeralKey:(NSDictionary *) ephemeralKey) {
   self.rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-
+  
   RNStripeKeyProvider *keyProvider = [[RNStripeKeyProvider alloc] initWithEphemeralKey:ephemeralKey];
   
   // Set up customer context
@@ -37,15 +45,11 @@
   self.paymentContext.hostViewController = self.rootViewController;
 }
 
-- (void) selectPaymentOption {
+RCT_EXPORT_METHOD(selectPaymentOption) {
   [self.paymentContext presentPaymentOptionsViewController];
 }
 
-- (void) selectShippingOption {
-  [self.paymentContext presentShippingViewController];
-}
-
-- (void) requestPayment:(NSString*) paymentIntentSecret {
+RCT_EXPORT_METHOD(requestPayment:(NSString*) paymentIntentSecret) {
   self.paymentIntentSecret = paymentIntentSecret;
   [self.paymentContext requestPayment];
 }
@@ -56,7 +60,6 @@
 }
 
 - (void)paymentContext:(STPPaymentContext *)paymentContext didUpdateShippingAddress:(STPAddress *)address completion:(STPShippingMethodsCompletionBlock)completion {
-  
 }
 
 - (void)paymentContext:(STPPaymentContext *)paymentContext didCreatePaymentResult:(STPPaymentResult *)paymentResult completion:(STPErrorBlock)completion {

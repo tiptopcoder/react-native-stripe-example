@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, TouchableOpacity, Alert } from 'react-native';
+import { Text, TouchableOpacity, Alert, NativeModules, View } from 'react-native';
 import styled from 'styled-components/native';
-
-const Container = styled.View``;
+import BaseButton from './Button';
+import axios from '../axiosInstance';
 
 const ListItem = styled.View`
   flex-direction: row;
@@ -39,20 +39,18 @@ const ProductName = styled.Text`
   margin-top: 8
 `;
 
-const ButtonPay = styled.TouchableOpacity`
-  background-color: rgb(22, 164, 127);
+const ButtonPay = styled(BaseButton)`
   margin-horizontal: 16;
-  padding-horizontal: 16;
-  padding-vertical: 8;
   margin-top: 16;
-  border-radius: 4;
-  align-items: center;
 `;
 
-const ButtonPayText = styled.Text `
-  color: #fff;
-  font-size: 18;
-  font-weight: 700;
+const ButtonNewCustomer = styled.TouchableOpacity`
+  padding-vertical: 16;
+`;
+
+const ButtonNewCustomerText = styled.Text`
+  text-align: center;
+  color: rgb(172, 0, 32);
 `;
 
 export default class extends React.Component {
@@ -60,15 +58,24 @@ export default class extends React.Component {
     super(props);
     this.state = {
       productPrice: 25,
-      shippingPrice: 0,
-      shippingType: null,
       paymentMethod: null,
-      successful: false
+      successful: false,
+    }
+    this.listeners = {}
+    this.stripe = NativeModules.RNStripe;
+  }
+
+  async componentDidMount() {
+    try {
+      const key = await this.getEphemeralKey();
+      this.stripe.initWithEphemeralKey(key);
+    } catch (e) {
+      Alert.alert('Error', e.response ? e.response.data.message : e.message);
     }
   }
 
-  total() {
-    return this.formatCurrency(this.state.productPrice + this.state.shippingPrice);
+  componentWillUnmount() {
+
   }
 
   formatCurrency(amount) {
@@ -76,10 +83,6 @@ export default class extends React.Component {
   }
 
   buy() {
-    if(!this.state.shippingType) {
-      return Alert.alert('Error', 'Please select a shipping method');
-    }
-
     if(!this.state.paymentMethod) {
       return Alert.alert('Error', 'Please select a payment method');
     }
@@ -87,11 +90,35 @@ export default class extends React.Component {
     Alert.alert('Payment Confirmed!', 'Thank you for your purchase!');
   }
 
+  async getEphemeralKey() {
+    const { customer } = this.props;
+    const response = await axios.get(`/${customer.id}/ephemeral-key`);
+
+    return response.data;
+  }
+
+  async getPaymentIntent() {
+    const { customer } = this.props;
+    const response = await axios.post(`/${customer.id}/payment-intent`);
+
+    return response.data;
+  }
+
   render() {
-    const { productPrice, shippingType, paymentMethod } = this.state;
+    const { productPrice, paymentMethod } = this.state;
+    const { customer } = this.props;
 
     return (
-      <Container>
+      <View>
+        {/* customer */}
+        <ListItem bottomDivider>
+          <ListItemLeft>
+            <Label>Customer</Label>
+          </ListItemLeft>
+          <ListItemRight>
+            <Text>{customer.id}</Text>
+          </ListItemRight>
+        </ListItem>
         {/* product */}
         <ListItem bottomDivider>
           <ListItemLeft>
@@ -102,19 +129,8 @@ export default class extends React.Component {
             <Text>{this.formatCurrency(productPrice)}</Text>
           </ListItemRight>
         </ListItem>
-        {/* shipping */}
-        <TouchableOpacity>
-          <ListItem bottomDivider>
-            <ListItemLeft>
-              <Label>Shipping</Label>
-            </ListItemLeft>
-            <ListItemRight>
-              <Text>{shippingType}</Text>
-            </ListItemRight>
-          </ListItem>
-        </TouchableOpacity>
         {/* payment method */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => this.stripe.selectPaymentOption()}>
           <ListItem bottomDivider>
             <ListItemLeft>
               <Label>Payment method</Label>
@@ -127,17 +143,19 @@ export default class extends React.Component {
         {/* total */}
         <ListItem>
           <ListItemLeft>
-            <LabelLarge>Payment method</LabelLarge>
+            <LabelLarge>Total</LabelLarge>
           </ListItemLeft>
           <ListItemRight>
-            <LabelLarge>{ this.total() }</LabelLarge>
+            <LabelLarge>{this.formatCurrency(productPrice)}</LabelLarge>
           </ListItemRight>
         </ListItem>
         {/* pay Button */}
-        <ButtonPay onPress={this.buy.bind(this)}>
-          <ButtonPayText>Buy</ButtonPayText>
-        </ButtonPay>
-      </Container>
+        <ButtonPay onPress={this.buy.bind(this)} title={'Buy'} />
+        {/* New customer */}
+        <ButtonNewCustomer onPress={this.props.onResetCustomer}>
+          <ButtonNewCustomerText>Reset customer</ButtonNewCustomerText>
+        </ButtonNewCustomer>
+      </View>
     )
   }
 }

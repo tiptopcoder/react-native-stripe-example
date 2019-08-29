@@ -26,8 +26,4 @@
 @property (nonatomic, strong) NSString* _Nonnull paymentIntentSecret;
 @property bool hasListeners;
 
-- (void) selectPaymentOption;
-- (void) selectShippingOption;
-- (void) requestPayment:(NSString* ) paymentIntentSecret;
-
 @end
